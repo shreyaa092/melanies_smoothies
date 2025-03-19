@@ -11,9 +11,6 @@ st.write("Choose the fruits you want in smoothie")
 
 name_on_order= st.text_input('Name on smoothie')
 st.write('The name on your smoothie is', name_on_order)
-session = get_active_session()
-conn=st.connection("snowflake")
-session=conn.session
 my_dataframe = session.table("smoothies.public.fruit_options").select(col('fruit_name'), col('SEARCH_ON'))
 #st.dataframe(data=my_dataframe, use_container_width=True)
 #st.stop()
