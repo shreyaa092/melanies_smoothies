@@ -50,8 +50,22 @@ if ingredients_list:
         #st.write('The search value for ', fruit_chosen,' is ', search_on, '.')
 
         st.subheader(fruit_chosen + 'Nutrition Information')
-        fruityvice_response=requests.get("https://fruityvice.com/api/fruit" + search_on)
-        fv_df=st.dataframe(data=fruityvice_response.json(), use_container_width=True)
+        # Modified code with error handling
+        try:
+            fruityvice_response = requests.get("https://fruityvice.com/api/fruit/" + str(search_on))
+            fruityvice_response.raise_for_status()  # Check for HTTP errors
+    
+    # Verify response contains valid JSON before parsing
+            if fruityvice_response.text.strip():
+                fv_df = st.dataframe(data=fruityvice_response.json(), 
+                           use_container_width=True)
+            else:
+                st.warning(f"No nutritional data found for {fruit_chosen}")
+        except requests.exceptions.JSONDecodeError:
+            st.error(f"Invalid JSON response for {fruit_chosen}")
+            st.text(f"Raw response: {fruityvice_response.text[:200]}")  # Show first 200 chars
+        except requests.exceptions.RequestException as e:
+            st.error(f"API request failed: {str(e)}")
 
     #for fruit_chosen in ingredients_list:
         #ingredients_string += fruit_chosen + ' '
