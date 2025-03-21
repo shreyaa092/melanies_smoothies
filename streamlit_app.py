@@ -4,6 +4,7 @@ from snowflake.snowpark.context import get_active_session
 from snowflake.snowpark.functions import col
 import pandas as pd
 import requests
+from snowflake.snowpark import Session
 
 # Write directly to the app
 st.title("Customize your smoothie :cup_with_straw:")
