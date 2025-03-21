@@ -52,7 +52,7 @@ if ingredients_list:
         st.subheader(fruit_chosen + 'Nutrition Information')
         # Modified code with error handling
         try:
-            fruityvice_response = requests.get("https://my.smoothiefroot.com/api/fruit" + str(search_on))
+            fruityvice_response = requests.get("https://my.smoothiefroot.com/api/fruit/" + str(search_on))
             fruityvice_response.raise_for_status()  # Check for HTTP errors
     
     # Verify response contains valid JSON before parsing
