@@ -10,7 +10,7 @@ st.title("Customize your smoothie :cup_with_straw:")
 st.write("Choose the fruits you want in smoothie")
 
 connection_parameters = {
-    "account":"XCNCNBX-IZB56497',
+    "account":"XCNCNBX-IZB56497",
     "user" = "SG009"
     "password"="Shreya@092002"
 }
