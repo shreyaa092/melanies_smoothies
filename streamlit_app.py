@@ -11,7 +11,7 @@ st.write("Choose the fruits you want in smoothie")
 
 connection_parameters = {
     "account":"XCNCNBX-IZB56497",
-    "user" = "SG009"
+    "user" = "SG009",
     "password"="Shreya@092002"
 }
 name_on_order= st.text_input('Name on smoothie')
