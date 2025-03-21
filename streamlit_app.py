@@ -1,4 +1,3 @@
-# Import python packages
 import streamlit as st
 from snowflake.snowpark.context import get_active_session
 from snowflake.snowpark.functions import col
@@ -43,19 +42,19 @@ if ingredients_list:
     st.write(ingredients_list)
     st.text(ingredients_list)
 
-    ingredients_string= ' '
+    ingredients_string = ', '.join(ingredients_list)  # Concatenate selected ingredients
     
     for fruit_chosen in ingredients_list:
         search_on=pd_df.loc[pd_df['FRUIT_NAME'] == fruit_chosen, 'SEARCH_ON'].iloc[0]
         #st.write('The search value for ', fruit_chosen,' is ', search_on, '.')
 
-        st.subheader(fruit_chosen + 'Nutrition Information')
+        st.subheader(fruit_chosen + ' Nutrition Information')
         # Modified code with error handling
         try:
             fruityvice_response = requests.get("https://my.smoothiefroot.com/api/fruit/" + str(search_on))
             fruityvice_response.raise_for_status()  # Check for HTTP errors
     
-    # Verify response contains valid JSON before parsing
+            # Verify response contains valid JSON before parsing
             if fruityvice_response.text.strip():
                 fv_df = st.dataframe(data=fruityvice_response.json(), 
                            use_container_width=True)
@@ -67,11 +66,8 @@ if ingredients_list:
         except requests.exceptions.RequestException as e:
             st.error(f"API request failed: {str(e)}")
 
-    #for fruit_chosen in ingredients_list:
-        #ingredients_string += fruit_chosen + ' '
+    st.write(ingredients_string)  # Print concatenated ingredients
 
-    #st.write( ingredients_string )
-     
     my_insert_stmt = """ insert into smoothies.public.orders(ingredients)
             values ('""" + ingredients_string + """')"""
 
