@@ -10,14 +10,18 @@ from snowflake.snowpark import Session
 st.title("Customize your smoothie :cup_with_straw:")
 st.write("Choose the fruits you want in smoothie")
 
+# Fix variable name typo and use proper session creation
 connection_parameters = {
     "account":"XCNCNBX-IZB56497",
     "user" : "SG009",
     "password":"Shreya@092002"
 }
+
+# Create session using imported Session class
+session = Session.builder.configs(connection_parameters).create()  # Fixed typo and variable name
+
 name_on_order= st.text_input('Name on smoothie')
 
-new_session=Session.builder.configs(connection_paramters).create()
 #session = get_active_session()
 st.write('The name on your smoothie is', name_on_order)
 my_dataframe = session.table("smoothies.public.fruit_options").select(col('fruit_name'), col('SEARCH_ON'))
