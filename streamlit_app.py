@@ -42,7 +42,7 @@ if ingredients_list:
     st.write(ingredients_list)
     st.text(ingredients_list)
 
-    ingredients_string = ', '.join(ingredients_list)  # Concatenate selected ingredients
+    ingredients_string = join(ingredients_list)  # Concatenate selected ingredients
     
     for fruit_chosen in ingredients_list:
         search_on=pd_df.loc[pd_df['FRUIT_NAME'] == fruit_chosen, 'SEARCH_ON'].iloc[0]
